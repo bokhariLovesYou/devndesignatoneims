@@ -36,7 +36,13 @@ const SearchBarInput = styled.input`
   color: var(--theme-ui-colors-text, #36313d);
   overflow: hidden;
   font-weight: 600;
-  padding-right: 4rem;
+  padding-right: 2rem;
+  @media (min-width: 420px) {
+    padding-right: 4rem;
+  }
+  @media (min-width: 768px) {
+    padding-right: 6rem;
+  }
   @media (min-width: 992px) {
     padding-right: 12rem;
   }
