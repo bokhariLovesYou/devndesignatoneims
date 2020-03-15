@@ -16,6 +16,7 @@ export const Section = styled.section`
   padding: 2rem 0;
   padding: ${props => (props.Medium ? "3rem 0" : "")};
   padding: ${props => (props.Large ? "4rem 0" : "")};
+  padding: ${props => (props.ExtraLarge ? "8rem 0" : "")};
 `
 
 export const Subtitle = styled.p`
