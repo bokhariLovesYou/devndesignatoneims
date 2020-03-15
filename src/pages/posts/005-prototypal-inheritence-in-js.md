@@ -28,11 +28,18 @@ So, while everything in JavaScript is **not** an object, the not-object things
 
 For example, if we create an empty function named `hero`:
 
-    function hero() {}
+```javascript
+function hero() {}
+```
 
 And like I mentioned before, functions are also classed as objects in JavaScript. So if we add a property `type` to this function and print it out, you will see that `hero` function is now also an object.
 
-    function hero() {}hero.type = 'superman'console.log(hero)//Output{ [Function: hero] type: 'superman' }
+```javascript
+function hero() {
+  hero.type = "superman"
+  console.log(hero)
+} // Output { [Function: hero] type: 'superman' }
+```
 
 This is one of many things that makes JavaScript so awesome! 🙌
 
@@ -74,7 +81,11 @@ Inheritance is the process by which one object can be based on another. This let
 
 I have created the `Hero` prototype and used it to create a new object named `superman`. But we are not doing anything with this object. So let’s take care of that by creating another function called `dialogue`.
 
-    function dialogue() {  console.log('I am ' + this.name);}
+```javascript
+function dialogue() {
+  console.log("I am " + this.name)
+}
+```
 
 But if we run our code now, nothing is going to happen because this function doesn’t know what the name really is. For that, we need to
 
@@ -98,29 +109,48 @@ When the JavaScript engine comes across `superman.dialogue()` in the code, it 
 
 We can make this even more exclusive by creating a new class for `Superman` that will inherit the properties of the `Hero` prototype. We can do this by assigning the prototype of `Superman` to the `Hero` prototype like this:
 
-    function Superman() {}Superman.prototype = Hero.prototype
+```javascript
+function Superman() {}
+Superman.prototype = Hero.prototype
+```
 
 But what this does is that it just makes both `Superman` and `Hero` equal. What we really need is a new object that is based on the `Hero` prototype. Since ES5, JavaScript comes with a built-in function called `Object.create()`. Let’s use it here as shown below:
 
-    Superman.prototype = Object.create(Hero.prototype);
+```javascript
+Superman.prototype = Object.create(Hero.prototype)
+```
 
 This will create a new empty object that is based on the `Hero` prototype and assign it to the `Superman` prototype. So all the properties that we have in the `Hero` prototype can now be accessed by the `Superman` prototype. So instead of calling `new Hero`, we can call `new Superman` and everything will still work as it should.
 
 But if you take a closer look at the output, you will notice that there is an `undefined` inside it. That is because currently the `Hero` is a constructor only for itself. We have to `call` the properties of `Hero` inside the `Superman` prototype.
 
-    Hero.call(this, 'Superman', 'Clark Kent', 'Krypton')
+```javascript
+Hero.call(this, "Superman", "Clark Kent", "Krypton")
+```
 
 Let’s create another constructor called `MarvelMovies` as shown below:
 
-    function MarvelMovies(movieName, releaseYear) {  this.movieName = movieName;  this.releaseYear = releaseYear;}
+```javascript
+function MarvelMovies(movieName, releaseYear) {
+  this.movieName = movieName
+  this.releaseYear = releaseYear
+}
+```
 
 When a function is used as a constructor, `this` refers to the new object that we are creating. So in this constructor, I have taken `movieName` and `releaseYear` as arguments and assigned those values to the `movieName` and `releaseYear` properties of our new `MarvelMovies` instance named `avengers`.
 
-    var avengers = new MarvelMovies("avengers", 2012);
+```javascript
+var avengers = new MarvelMovies("avengers", 2012)
+```
 
 I am then going to create a new method called `output` for this prototype as shown below:
 
-    MarvelMovies.prototype.output = function() {  return "Movie: " + this.movieName + " Released in " + this.releaseYear;}console.log(avengers.output());
+```javascript
+MarvelMovies.prototype.output = function() {
+  return "Movie: " + this.movieName + " Released in " + this.releaseYear
+}
+console.log(avengers.output())
+```
 
 ## Future Inheritance
 
@@ -130,7 +160,15 @@ JavaScript will look up the prototype when trying to access properties on an obj
 
 To illustrate this, lets create an array as shown below:
 
-    var numbers = [11, 22, 33, 44, 55];Array.prototype.shuffle = function() {  return this.sort(function() {    return Math.round( Math.random() * 2) - 1;  });};console.log(numbers.shuffle());
+```javascript
+var numbers = [11, 22, 33, 44, 55]
+Array.prototype.shuffle = function() {
+  return this.sort(function() {
+    return Math.round(Math.random() * 2) - 1
+  })
+}
+console.log(numbers.shuffle())
+```
 
 Here, the `numbers` array existed before the `Array.prototype.shuffle` did. But in JavaScript, the property lookups go up the prototype chain. This is why the array still gets access to the new method `shuffle`, since it exists on the `Array.prototype` when we are actually trying to use it.
 
