@@ -61,7 +61,7 @@ export class SinglePost extends Component {
                           {post.tags.title}
                         </StyledLink>
                       </PostCategoryMeta>
-                      {/* <p className="mb-0">Compiled by {post.author}</p> */}
+                      <p className="mb-0">Compiled by {post.author}</p>
                     </ContentBox>
                     <FeaturedImage>
                       <Img
