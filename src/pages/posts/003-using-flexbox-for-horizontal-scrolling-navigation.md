@@ -8,6 +8,7 @@ image: "../../images/pawel-czerwinski-yXABLtZJpdI-unsplash.jpg"
 gated: false
 tags:
   title: CSS
+  client: false
 ---
 
 In this post, I want to cover how flexbox can be used to achieve the same thing and the benefits over the `inline-block` method.

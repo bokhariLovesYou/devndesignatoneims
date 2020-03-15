@@ -157,3 +157,11 @@ a {
 .command-line-prompt > span[data-prompt]:before {
   content: attr(data-prompt);
 }
+
+.folder {
+  display: block;
+  flex-shrink: 0;
+  fill: rgba(55, 53, 47, 0.8);
+  width: 17px;
+  height: 17px;
+}

@@ -8,6 +8,7 @@ image: "../../images/pawel-czerwinski-8RrXjMCtL5g-unsplash.jpg"
 gated: false
 tags:
   title: JavaScript
+  client: false
 ---
 
 You might have heard people say that **“In JavaScript, Everything is an Object”**.

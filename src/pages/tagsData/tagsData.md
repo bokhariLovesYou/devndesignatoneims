@@ -10,15 +10,24 @@ tags:
   title: RemoveFromIndex
 globalTagsData:
   - title: WordPress
+    client: false
     image: "../../images/231.jpg"
     description: "This catalogue consists info and resources how we build using WordPress"
   - title: HubSpot
+    client: false
     image: "../../images/hubspot-large.png"
     description: "This catalogue consists info and resources how we build using HubSpot"
   - title: JavaScript
+    client: false
     image: "../../images/JavaScript-logo.png"
     description: "This catalogue consists info and resources how we build using JavaScript"
   - title: CSS
+    client: false
     image: "../../images/css3.jpg"
     description: "This catalogue consists info and resources how we build using CSS"
+    # Client Categories
+  - title: Burnham Nationwide
+    client: true
+    image: "../../images/0-burnham.png"
+    description: "This catalogue consists info and resources for Burnham Nationwide"
 ---

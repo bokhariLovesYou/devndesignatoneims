@@ -2,18 +2,19 @@ import React, { Component } from "react"
 import Layout from "../components/Layout"
 import SEO from "../components/Seo"
 import { Container, Row, Col } from "react-bootstrap"
-import Img from "gatsby-image"
 import { graphql } from "gatsby"
 import { Link } from "gatsby"
-import { slugify } from "../util/utilityFunctions.js"
 import styled from "styled-components"
+import { slugify } from "../util/utilityFunctions.js"
 import {
   HeadingLarge,
   Section,
   ContentBox,
   PostMetaWrapper,
   Line,
-  FeaturedImage,
+  CategoryImageLoopWrapper,
+  CategoryImageLoop,
+  CategoryImageLoopTint,
   Article,
   ArticleContents,
   PostCategoryMeta,
@@ -22,14 +23,19 @@ const StyledLink = styled(props => <Link {...props} />)`
   font-weight: 600;
 `
 
-export class SinglePost extends Component {
+export class ClientsSinglePost extends Component {
   render() {
     const { data } = this.props
-    const post = data.markdownRemark.frontmatter
-    let resolutions = ""
-    if (post.image !== null) {
-      resolutions = post.image.childImageSharp.fluid
-    }
+    const post = data.postData.frontmatter
+    let tagData = []
+    data.globalCatData.frontmatter.globalTagsData.forEach(elem => {
+      if (elem.title === post.tags.title) {
+        tagData.push({
+          title: elem.title,
+          image: elem.image.childImageSharp.fluid.src,
+        })
+      }
+    })
     const renderSEO = () => {
       if (post.gated) {
         return (
@@ -57,24 +63,25 @@ export class SinglePost extends Component {
                       <span>Posted at {post.date}</span>
                       <PostCategoryMeta>
                         Filed under{" "}
-                        <StyledLink to={`/tag/${slugify(post.tags.title)}`}>
+                        <StyledLink to={`/clients/${slugify(post.tags.title)}`}>
                           {post.tags.title}
                         </StyledLink>
                       </PostCategoryMeta>
-                      <p className="mb-0">Compiled by {post.author}</p>
                     </ContentBox>
-                    <FeaturedImage>
-                      <Img
-                        className="featured-image__post"
-                        fluid={resolutions}
+                    <CategoryImageLoopWrapper>
+                      <CategoryImageLoop
+                        style={{
+                          backgroundImage: `url(${tagData[0].image})`,
+                        }}
                       />
-                    </FeaturedImage>
+                      <CategoryImageLoopTint />
+                    </CategoryImageLoopWrapper>
                   </PostMetaWrapper>
                   <Line />
                   <ArticleContents
                     className="article--content"
                     dangerouslySetInnerHTML={{
-                      __html: data.markdownRemark.html,
+                      __html: data.postData.html,
                     }}
                   />
                 </Article>
@@ -88,26 +95,43 @@ export class SinglePost extends Component {
   }
 }
 
-export default SinglePost
+export default ClientsSinglePost
 export const query = graphql`
-  query BlogPostBySlug($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+  query ClientsPostBySlug($slug: String!) {
+    postData: markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       html
       frontmatter {
         title
         author
         date(formatString: "MMM Do YYYY")
+        documentation
+        gated
         tags {
           title
         }
         metaTitle
-        gated
         metaDescription
         image {
           childImageSharp {
             fluid(maxWidth: 1600, maxHeight: 800) {
               ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+    }
+    globalCatData: markdownRemark(
+      frontmatter: { title: { eq: "globalCatData" } }
+    ) {
+      frontmatter {
+        globalTagsData {
+          title
+          image {
+            childImageSharp {
+              fluid(maxWidth: 1100, maxHeight: 1100) {
+                ...GatsbyImageSharpFluid
+              }
             }
           }
         }

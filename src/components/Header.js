@@ -32,7 +32,7 @@ const LogoTitle = styled.span`
   padding-left: 0.758rem;
   font-weight: 700;
   display: none;
-  @media (min-width: 576px) {
+  @media (min-width: 768px) {
     display: block;
   }
 `

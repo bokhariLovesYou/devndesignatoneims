@@ -3,6 +3,7 @@ module.exports = {
     title: `Dev&Design At OneIMS`,
     description: ``,
     author: `Paras Bokhari`,
+    noIndex: ``,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

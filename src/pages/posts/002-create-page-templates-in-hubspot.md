@@ -8,6 +8,7 @@ image: "../../images/pawel-czerwinski-eTLKz1gEVoQ-unsplash.jpg"
 gated: false
 tags:
   title: HubSpot
+  client: false
 ---
 
 ## What is a HubSpot template?

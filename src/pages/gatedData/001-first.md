@@ -1,14 +1,15 @@
 ---
-title: "Create and Edit Pages in HubSpot"
-metaTitle: "Create and Edit Pages in HubSpot"
+title: "Burnham Nationwide"
+metaTitle: "Burnham Nationwide"
 metaDescription: "Learn how to edit your page content and styles in the landing page and website pages editor."
 date: 2020-03-11 07:00:00
 author: "Paras Bokhari"
-image: "../../images/pawel-czerwinski-1JLIC7bnoZA-unsplash.jpg"
-gated: false
+image: null
+gated: true
+documentation: true
 tags:
-  title: HubSpot
-  client: false
+  title: Burnham Nationwide
+  client: true
 ---
 
 Learn how to edit your page content and styles in the landing page and website pages editor. To create great content on your page, work with a web developer to build your template layout in the **[design manager tool](https://knowledge.hubspot.com/cos-general/a-quick-tour-of-the-design-manager)**. If you don't have a web developer on your team, you can connect with a **[certified HubSpot Partner](https://www.hubspot.com/agencies)**, or search for templates on the **[Asset Marketplace](https://marketplace.hubspot.com/products)**.

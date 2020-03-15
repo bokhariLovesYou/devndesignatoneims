@@ -3,6 +3,7 @@ import Layout from "../components/Layout"
 import SEO from "../components/Seo"
 import Card from "../components/Card"
 import Category from "../components/Category"
+import { slugify } from "../util/utilityFunctions.js"
 import { graphql } from "gatsby"
 // Bootstrap Grids
 import { Container, Row, Col } from "react-bootstrap"
@@ -17,16 +18,6 @@ import {
 
 export class index extends Component {
   render() {
-    const slugify = str => {
-      return str
-        .toString()
-        .toLowerCase()
-        .replace(/\s+/g, "-") // Replace spaces with -
-        .replace(/[^\w-]+/g, "") // Remove all non-word chars
-        .replace(/--+/g, "-") // Replace multiple - with single -
-        .replace(/^-+/, "") // Trim - from start of text
-        .replace(/-+$/, "") // Trim - from end of text
-    }
     const { data } = this.props
     let blogPosts = []
     let categories = []
@@ -40,13 +31,16 @@ export class index extends Component {
       }
     })
     data.globalQuery.frontmatter.globalTagsData.forEach(elem => {
-      categories.push({
-        title: elem.title,
-        description: elem.description,
-        image: elem.image.childImageSharp.fluid,
-        destination: `/tag/${slugify(elem.title)}`,
-      })
+      if (!elem.client) {
+        categories.push({
+          title: elem.title,
+          description: elem.description,
+          image: elem.image.childImageSharp.fluid,
+          destination: `/tag/${slugify(elem.title)}`,
+        })
+      }
     })
+    console.log(data.globalQuery.frontmatter.globalTagsData)
     const seen = {}
     categories = categories.filter(entry => {
       let previous
@@ -69,8 +63,7 @@ export class index extends Component {
             <ContentBox>
               <HeadingLarge>dev&design at oneims.</HeadingLarge>
               <Subtitle Light>
-                Creative teammates building a world where we can belong
-                anywhere.
+                Creative teammates building beautiful things on the internet.
               </Subtitle>
             </ContentBox>
           </Container>
@@ -88,7 +81,7 @@ export class index extends Component {
           <Container className="pt-3 pt-md-4">
             <Row>
               {blogPosts.slice(1, 5).map((elem, index) => (
-                <Col md={6} xl={3} className="mb-4 mb-xl-0">
+                <Col key={index} md={6} xl={3} className="mb-4 mb-xl-0">
                   <Card
                     key={index}
                     imageSrc={elem.image}
@@ -165,6 +158,7 @@ export const query = graphql`
         globalTagsData {
           title
           description
+          client
           image {
             childImageSharp {
               fluid(maxWidth: 1100, maxHeight: 1100) {

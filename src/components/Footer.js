@@ -34,12 +34,12 @@ export class Footer extends Component {
     return (
       <FooterContents>
         <Container>
-          <Row className="justify-content-center align-items-center">
+          <Row className="justify-content-center text-center text-md-left align-items-center">
             <Col md={6}>
               <Span>© dev&designatoneims.</Span>
             </Col>
             <Col md={6}>
-              <div className="d-flex justify-content-md-end mt-3 mt-md-0">
+              <div className="d-flex justify-content-center justify-content-md-end mt-3 mt-md-0">
                 <StyledLink
                   href="http://www.facebook.com/OneIMS"
                   target="_blank"

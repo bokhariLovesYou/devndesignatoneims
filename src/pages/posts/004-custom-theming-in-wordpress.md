@@ -8,6 +8,7 @@ image: "../../images/pawel-czerwinski-z7prq6BtPE4-unsplash.jpg"
 gated: false
 tags:
   title: WordPress
+  client: false
 ---
 
 Post coming soon...
