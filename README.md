@@ -1,4 +1,4 @@
-# Gatsby Starter
+# Dev & Design at OneIMS
 
 ## Installing
 
