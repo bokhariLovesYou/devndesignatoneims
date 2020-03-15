@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { graphql, StaticQuery, Link } from "gatsby"
-import Search from "./search"
+import Search from "./Search"
 // Bootstrap Container
 import Container from "react-bootstrap/Container"
 // Styled Elements
