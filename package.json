@@ -1,14 +1,14 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "designanddev-at-oneims",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Design and Dev blog at OneIMS",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Paras Bokhari",
   "dependencies": {
     "@gatsby-contrib/gatsby-plugin-elasticlunr-search": "^2.3.0",
     "babel-plugin-styled-components": "^1.10.7",
     "bootstrap": "^4.4.1",
-    "gatsby": "^2.19.7",
+    "gatsby": "^2.19.43",
     "gatsby-image": "^2.2.39",
     "gatsby-plugin-manifest": "^2.2.39",
     "gatsby-plugin-offline": "^3.0.32",

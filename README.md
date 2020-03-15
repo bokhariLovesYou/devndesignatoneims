@@ -4,7 +4,7 @@
 
 ```bash
 # From Source
-git clone https://github.com/bokhariLovesYou/gatsby-customized-starter.git
+git clone https://github.com/bokhariLovesYou/devndesignatoneims.git
 cd devatoneims
 ```
 
