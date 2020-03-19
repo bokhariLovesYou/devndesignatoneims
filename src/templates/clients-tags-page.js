@@ -1,8 +1,9 @@
 import React, { Component } from "react"
 import Layout from "../components/Layout"
 import SEO from "../components/Seo"
+import auth from "../util/auth.js"
 import PageListItem from "../components/PageListItem"
-import { graphql } from "gatsby"
+import { graphql, navigate } from "gatsby"
 import { slugify } from "../util/utilityFunctions.js"
 // Bootstrap Grids
 import Container from "react-bootstrap/Container"
@@ -42,45 +43,56 @@ export class ClientsTagsPage extends Component {
           "/clients/" + slugify(tagData[0].title) + "/" + node.fields.slug,
       })
     })
-    return (
-      <Layout>
-        <SEO
-          title={tagData[0].title}
-          description={tagData[0].description}
-          noIndex="noindex, nofollow"
-        />
-        <Section>
-          <Container>
-            <HeadingLarge>{tagData[0].title}</HeadingLarge>
-            <Subtitle className="mb-0">{tagData[0].description}</Subtitle>
-            <CategoryImageLoopWrapper>
-              <CategoryImageLoop
-                style={{
-                  backgroundImage: `url(${tagData[0].image})`,
-                }}
-              />
-              <CategoryImageLoopTint />
-            </CategoryImageLoopWrapper>
-            <Line />
-          </Container>
-          <Container>
-            <ContentBox>
-              <PageListWrapper>
-                <PageListContents>
-                  {blogPosts.map((elem, index) => (
-                    <PageListItem
-                      title={elem.title}
-                      key={index}
-                      destination={elem.destination}
-                    />
-                  ))}
-                </PageListContents>
-              </PageListWrapper>
-            </ContentBox>
-          </Container>
-        </Section>
-      </Layout>
-    )
+
+    const checkAuthentication = () => {
+      if (auth.currentUser() !== null) {
+        return (
+          <Layout>
+            <SEO
+              title={tagData[0].title}
+              description={tagData[0].description}
+              noIndex="noindex, nofollow"
+            />
+            <Section>
+              <Container>
+                <HeadingLarge>{tagData[0].title}</HeadingLarge>
+                <Subtitle className="mb-0">{tagData[0].description}</Subtitle>
+                <CategoryImageLoopWrapper>
+                  <CategoryImageLoop
+                    style={{
+                      backgroundImage: `url(${tagData[0].image})`,
+                    }}
+                  />
+                  <CategoryImageLoopTint />
+                </CategoryImageLoopWrapper>
+                <Line />
+              </Container>
+              <Container>
+                <ContentBox>
+                  <PageListWrapper>
+                    <PageListContents>
+                      {blogPosts.map((elem, index) => (
+                        <PageListItem
+                          title={elem.title}
+                          key={index}
+                          destination={elem.destination}
+                        />
+                      ))}
+                    </PageListContents>
+                  </PageListWrapper>
+                </ContentBox>
+              </Container>
+            </Section>
+          </Layout>
+        )
+      } else {
+        if (typeof window !== `undefined`) {
+          navigate("/login")
+        }
+      }
+    }
+
+    return <>{checkAuthentication()}</>
   }
 }
 

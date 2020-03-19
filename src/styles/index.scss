@@ -165,3 +165,34 @@ a {
   width: 17px;
   height: 17px;
 }
+
+.icon-email {
+  shape-rendering: geometricprecision;
+}
+
+.bootstrap--loader {
+  color: #e83e8c;
+}
+
+.spinner-wrapper {
+  text-align: center;
+  padding-top: 1rem;
+}
+
+.fixed-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.5);
+  .loader-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

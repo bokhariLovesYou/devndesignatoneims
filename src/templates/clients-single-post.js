@@ -1,8 +1,9 @@
 import React, { Component } from "react"
 import Layout from "../components/Layout"
 import SEO from "../components/Seo"
+import auth from "../util/auth.js"
 import { Container, Row, Col } from "react-bootstrap"
-import { graphql } from "gatsby"
+import { graphql, navigate } from "gatsby"
 import { Link } from "gatsby"
 import styled from "styled-components"
 import { slugify } from "../util/utilityFunctions.js"
@@ -49,49 +50,60 @@ export class ClientsSinglePost extends Component {
         return <SEO title={post.metaTitle} description={post.metaDescription} />
       }
     }
-    return (
-      <Layout>
-        {renderSEO()}
-        <Section Medium>
-          <Container>
-            <Row>
-              <Col lg={8}>
-                <Article>
-                  <PostMetaWrapper>
-                    <ContentBox>
-                      <HeadingLarge>{post.title}</HeadingLarge>
-                      <span>Posted at {post.date}</span>
-                      <PostCategoryMeta>
-                        Filed under{" "}
-                        <StyledLink to={`/clients/${slugify(post.tags.title)}`}>
-                          {post.tags.title}
-                        </StyledLink>
-                      </PostCategoryMeta>
-                    </ContentBox>
-                    <CategoryImageLoopWrapper>
-                      <CategoryImageLoop
-                        style={{
-                          backgroundImage: `url(${tagData[0].image})`,
+    const checkAuthentication = () => {
+      if (auth.currentUser() !== null) {
+        return (
+          <Layout>
+            {renderSEO()}
+            <Section Medium>
+              <Container>
+                <Row>
+                  <Col lg={8}>
+                    <Article>
+                      <PostMetaWrapper>
+                        <ContentBox>
+                          <HeadingLarge>{post.title}</HeadingLarge>
+                          <span>Posted at {post.date}</span>
+                          <PostCategoryMeta>
+                            Filed under{" "}
+                            <StyledLink
+                              to={`/clients/${slugify(post.tags.title)}`}
+                            >
+                              {post.tags.title}
+                            </StyledLink>
+                          </PostCategoryMeta>
+                        </ContentBox>
+                        <CategoryImageLoopWrapper>
+                          <CategoryImageLoop
+                            style={{
+                              backgroundImage: `url(${tagData[0].image})`,
+                            }}
+                          />
+                          <CategoryImageLoopTint />
+                        </CategoryImageLoopWrapper>
+                      </PostMetaWrapper>
+                      <Line />
+                      <ArticleContents
+                        className="article--content"
+                        dangerouslySetInnerHTML={{
+                          __html: data.postData.html,
                         }}
                       />
-                      <CategoryImageLoopTint />
-                    </CategoryImageLoopWrapper>
-                  </PostMetaWrapper>
-                  <Line />
-                  <ArticleContents
-                    className="article--content"
-                    dangerouslySetInnerHTML={{
-                      __html: data.postData.html,
-                    }}
-                  />
-                </Article>
-              </Col>
-              <Col lg={4}></Col>
-            </Row>
-          </Container>
-        </Section>
-      </Layout>
-    )
+                    </Article>
+                  </Col>
+                  <Col lg={4}></Col>
+                </Row>
+              </Container>
+            </Section>
+          </Layout>
+        )
+      } else {
+        if (typeof window !== `undefined`) {
+          navigate("/login")
+        }
+      }
+    }
+    return <>{checkAuthentication()}</>
   }
 }
 

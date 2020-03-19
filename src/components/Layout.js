@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { myContext } from "./Provider"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "../styles/index.scss"
 // Components
@@ -15,11 +16,15 @@ class Layout extends Component {
   render() {
     const { children } = this.props
     return (
-      <>
-        <Header />
-        <Main>{children}</Main>
-        <Footer />
-      </>
+      <myContext.Consumer>
+        {context => (
+          <React.Fragment>
+            <Header />
+            <Main>{children}</Main>
+            <Footer />
+          </React.Fragment>
+        )}
+      </myContext.Consumer>
     )
   }
 }

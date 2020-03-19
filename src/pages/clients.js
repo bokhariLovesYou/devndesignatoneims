@@ -1,8 +1,9 @@
 import React, { Component } from "react"
 import Layout from "../components/Layout"
 import SEO from "../components/Seo"
+import auth from "../util/auth.js"
 import PageListItem from "../components/PageListItem"
-import { graphql } from "gatsby"
+import { graphql, navigate } from "gatsby"
 import { slugify } from "../util/utilityFunctions.js"
 // Bootstrap Grids
 import Container from "react-bootstrap/Container"
@@ -21,6 +22,7 @@ export class Clients extends Component {
   render() {
     const { data } = this.props
     let tagData = []
+    console.log(auth.currentUser())
     data.markdownRemark.frontmatter.globalTagsData.forEach(elem => {
       if (elem.client) {
         tagData.push({
@@ -31,38 +33,60 @@ export class Clients extends Component {
         })
       }
     })
-    return (
-      <Layout>
-        <SEO
-          title="Clients"
-          description="Browse documents by clients"
-          noIndex="noindex, nofollow"
-        />
-        <Section>
-          <Container>
-            <HeadingLarge>Clients</HeadingLarge>
-            <Subtitle className="mb-0">Browse documents by clients</Subtitle>
-            <Line />
-          </Container>
-          <Container>
-            <ContentBox>
-              <PageListWrapper>
-                <PageListContents>
-                  {tagData.map((elem, index) => (
-                    <PageListItem
-                      Folder
-                      title={elem.title}
-                      key={index}
-                      destination={elem.destination}
-                    />
-                  ))}
-                </PageListContents>
-              </PageListWrapper>
-            </ContentBox>
-          </Container>
-        </Section>
-      </Layout>
-    )
+    // Gate Page
+    const checkAuthentication = () => {
+      if (
+        auth.currentUser() !== null &&
+        auth.currentUser().app_metadata.roles[0] === "admin"
+      ) {
+        return (
+          <Layout>
+            <SEO
+              title="Clients"
+              description="Browse documents by clients"
+              noIndex="noindex, nofollow"
+            />
+            <Section>
+              <Container>
+                <HeadingLarge>Clients</HeadingLarge>
+                <Subtitle className="mb-0">
+                  Browse documents by clients
+                </Subtitle>
+                <Line />
+              </Container>
+              <Container>
+                <ContentBox>
+                  <PageListWrapper>
+                    <PageListContents>
+                      {tagData.map((elem, index) => (
+                        <PageListItem
+                          Folder
+                          title={elem.title}
+                          key={index}
+                          destination={elem.destination}
+                        />
+                      ))}
+                    </PageListContents>
+                  </PageListWrapper>
+                </ContentBox>
+              </Container>
+            </Section>
+          </Layout>
+        )
+      } else if (
+        auth.currentUser() !== null &&
+        auth.currentUser().app_metadata.roles[0] === "client"
+      ) {
+        if (typeof window !== `undefined`) {
+          navigate(`/clients/${auth.currentUser().email.split("@")[0]}`)
+        }
+      } else {
+        if (typeof window !== `undefined`) {
+          navigate("/login")
+        }
+      }
+    }
+    return <>{checkAuthentication()}</>
   }
 }
 

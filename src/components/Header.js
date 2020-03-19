@@ -1,10 +1,21 @@
 import React, { Component } from "react"
-import { graphql, StaticQuery, Link } from "gatsby"
+import { graphql, StaticQuery, Link, navigate } from "gatsby"
+import auth from "../util/auth.js"
 import Search from "./Search"
+import Spinner from "react-bootstrap/Spinner"
 // Bootstrap Container
 import Container from "react-bootstrap/Container"
 // Styled Elements
-import { FlexWrapper, FlexColumn } from "./StyledElements"
+import {
+  FlexWrapper,
+  FlexColumn,
+  Topbar,
+  ContentBox,
+  TopbarNavItem,
+  TopbarNav,
+  IconWrapper,
+  LogoutLink,
+} from "./StyledElements"
 // Styled Components
 import styled from "styled-components"
 const HeaderWrapper = styled.header``
@@ -38,7 +49,136 @@ const LogoTitle = styled.span`
 `
 
 class Header extends Component {
+  state = {
+    loading: false,
+  }
+
+  handleLogOut = () => {
+    this.setState({
+      loading: true,
+    })
+    auth
+      .currentUser()
+      .logout()
+      .then(response => {
+        if (typeof window !== `undefined`) {
+          navigate("/login")
+        }
+        this.setState({
+          loading: false,
+        })
+      })
+      .catch(error => {
+        console.log("Failed to logout user: %o", error)
+        this.setState({
+          loading: false,
+        })
+        throw error
+      })
+  }
+
   render() {
+    const checkAuthentication = () => {
+      if (
+        auth.currentUser() !== null &&
+        auth.currentUser().app_metadata.roles[0] === "admin"
+      ) {
+        return (
+          <>
+            <TopbarNavItem>
+              <LogoutLink onClick={this.handleLogOut}>
+                <FlexWrapper AlignedCentered>
+                  <IconWrapper>
+                    <svg viewBox="0 0 16 16" className="logInWeb">
+                      <path d="M8,0C3.582,0,0,3.582,0,8s3.582,8,8,8s8-3.582,8-8S12.418,0,8,0z M8,7L7.938,8h-1L7,7H5v2h1l1,1c0.313-0.333,1.021-1,2-1h1 l1,0.229C11.86,9.437,12.513,9.75,13,10v1l-0.938,1.407C10.993,13.393,9.569,14,8,14v-1l-1-1v-1l-2-1C4.018,9.547,3.25,8.938,3,8 L2.785,6c0-0.187,0.435-0.867,0.55-1L3.278,4.307C4.18,3.154,5.494,2.343,7,2.09V3.5L8,4c0.3,0,0.609-0.045,1-0.417 C9.382,3.22,9.719,3,10,3c0.698,0,1,0.208,1,1l-0.5,1h-0.311C9.612,5.279,9.261,5.506,9,6C8.749,6.475,8.475,6.773,8,7z M13,8 c-0.417-0.25-0.771-0.583-1-1V6l0.797-1.593C13.549,5.409,14,6.65,14,8c0,0.165-0.012,0.326-0.025,0.488L13,8z"></path>
+                    </svg>
+                  </IconWrapper>
+                  <span>Logout</span>
+                </FlexWrapper>
+              </LogoutLink>
+            </TopbarNavItem>
+            <TopbarNavItem>
+              <Link to="/clients">
+                <FlexWrapper AlignedCentered>
+                  <IconWrapper>
+                    <svg viewBox="0 0 14 14" className="folder">
+                      <path d="M12,1.5 L2,1.5 C1.72386,1.5 1.5,1.72386 1.5,2 L1.5,12 C1.5,12.2761 1.72386,12.5 2,12.5 L12,12.5 C12.2761,12.5 12.5,12.2761 12.5,12 L12.5,2 C12.5,1.72386 12.2761,1.5 12,1.5 Z M2,0 L12,0 C13.1046,0 14,0.895431 14,2 L14,12 C14,13.1046 13.1046,14 12,14 L2,14 C0.89543,14 0,13.1046 0,12 L0,2 C0,0.89543 0.895431,0 2,0 Z M3,3 L9,3 L9,4.5 L3,4.5 L3,3 Z M3,5.5 L11,5.5 L11,7 L3,7 L3,5.5 Z M3,8 L7,8 L7,9.5 L3,9.5 L3,8 Z"></path>
+                    </svg>
+                  </IconWrapper>
+                  <span>My Pages</span>
+                </FlexWrapper>
+              </Link>
+            </TopbarNavItem>
+          </>
+        )
+      } else if (
+        auth.currentUser() !== null &&
+        auth.currentUser().app_metadata.roles[0] === "client"
+      ) {
+        return (
+          <>
+            <TopbarNavItem>
+              <LogoutLink onClick={this.handleLogOut}>
+                <FlexWrapper AlignedCentered>
+                  <IconWrapper>
+                    <svg viewBox="0 0 16 16" className="logInWeb">
+                      <path d="M8,0C3.582,0,0,3.582,0,8s3.582,8,8,8s8-3.582,8-8S12.418,0,8,0z M8,7L7.938,8h-1L7,7H5v2h1l1,1c0.313-0.333,1.021-1,2-1h1 l1,0.229C11.86,9.437,12.513,9.75,13,10v1l-0.938,1.407C10.993,13.393,9.569,14,8,14v-1l-1-1v-1l-2-1C4.018,9.547,3.25,8.938,3,8 L2.785,6c0-0.187,0.435-0.867,0.55-1L3.278,4.307C4.18,3.154,5.494,2.343,7,2.09V3.5L8,4c0.3,0,0.609-0.045,1-0.417 C9.382,3.22,9.719,3,10,3c0.698,0,1,0.208,1,1l-0.5,1h-0.311C9.612,5.279,9.261,5.506,9,6C8.749,6.475,8.475,6.773,8,7z M13,8 c-0.417-0.25-0.771-0.583-1-1V6l0.797-1.593C13.549,5.409,14,6.65,14,8c0,0.165-0.012,0.326-0.025,0.488L13,8z"></path>
+                    </svg>
+                  </IconWrapper>
+                  <span>Logout</span>
+                </FlexWrapper>
+              </LogoutLink>
+            </TopbarNavItem>
+            <TopbarNavItem>
+              <Link to={`/clients/${auth.currentUser().email.split("@")[0]}`}>
+                <FlexWrapper AlignedCentered>
+                  <IconWrapper>
+                    <svg viewBox="0 0 14 14" className="folder">
+                      <path d="M12,1.5 L2,1.5 C1.72386,1.5 1.5,1.72386 1.5,2 L1.5,12 C1.5,12.2761 1.72386,12.5 2,12.5 L12,12.5 C12.2761,12.5 12.5,12.2761 12.5,12 L12.5,2 C12.5,1.72386 12.2761,1.5 12,1.5 Z M2,0 L12,0 C13.1046,0 14,0.895431 14,2 L14,12 C14,13.1046 13.1046,14 12,14 L2,14 C0.89543,14 0,13.1046 0,12 L0,2 C0,0.89543 0.895431,0 2,0 Z M3,3 L9,3 L9,4.5 L3,4.5 L3,3 Z M3,5.5 L11,5.5 L11,7 L3,7 L3,5.5 Z M3,8 L7,8 L7,9.5 L3,9.5 L3,8 Z"></path>
+                    </svg>
+                  </IconWrapper>
+                  <span>My Pages</span>
+                </FlexWrapper>
+              </Link>
+            </TopbarNavItem>
+          </>
+        )
+      } else {
+        return (
+          <TopbarNavItem>
+            <Link to="/login">
+              <FlexWrapper AlignedCentered>
+                <IconWrapper>
+                  <svg viewBox="0 0 16 16" className="logInWeb">
+                    <path d="M8,0C3.582,0,0,3.582,0,8s3.582,8,8,8s8-3.582,8-8S12.418,0,8,0z M8,7L7.938,8h-1L7,7H5v2h1l1,1c0.313-0.333,1.021-1,2-1h1 l1,0.229C11.86,9.437,12.513,9.75,13,10v1l-0.938,1.407C10.993,13.393,9.569,14,8,14v-1l-1-1v-1l-2-1C4.018,9.547,3.25,8.938,3,8 L2.785,6c0-0.187,0.435-0.867,0.55-1L3.278,4.307C4.18,3.154,5.494,2.343,7,2.09V3.5L8,4c0.3,0,0.609-0.045,1-0.417 C9.382,3.22,9.719,3,10,3c0.698,0,1,0.208,1,1l-0.5,1h-0.311C9.612,5.279,9.261,5.506,9,6C8.749,6.475,8.475,6.773,8,7z M13,8 c-0.417-0.25-0.771-0.583-1-1V6l0.797-1.593C13.549,5.409,14,6.65,14,8c0,0.165-0.012,0.326-0.025,0.488L13,8z"></path>
+                  </svg>
+                </IconWrapper>
+                <span>Login</span>
+              </FlexWrapper>
+            </Link>
+          </TopbarNavItem>
+        )
+      }
+    }
+
+    const checkLoading = () => {
+      if (this.state.loading) {
+        return (
+          <div className="fixed-wrapper">
+            <div className="loader-wrapper">
+              <Spinner
+                animation="border"
+                role="status"
+                className="bootstrap--loader"
+              >
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+            </div>
+          </div>
+        )
+      }
+    }
+
     return (
       <StaticQuery
         query={graphql`
@@ -50,6 +190,16 @@ class Header extends Component {
         `}
         render={data => (
           <HeaderWrapper>
+            {checkLoading()}
+            <Topbar>
+              <Container>
+                <ContentBox>
+                  <FlexWrapper FlexEnd>
+                    <TopbarNav>{checkAuthentication()}</TopbarNav>
+                  </FlexWrapper>
+                </ContentBox>
+              </Container>
+            </Topbar>
             <HeaderContents>
               <Container>
                 <FlexWrapper AlignedCentered>

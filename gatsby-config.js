@@ -10,6 +10,12 @@ module.exports = {
     `gatsby-plugin-sass`,
     `gatsby-plugin-styled-components`,
     {
+      resolve: `gatsby-plugin-netlify-identity`,
+      options: {
+        url: `https://devndesignatoneims.netlify.com`, // required!
+      },
+    },
+    {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: "UA-160597256-1",

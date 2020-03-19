@@ -4,6 +4,7 @@ export const FlexWrapper = styled.div`
   display: flex;
   align-items: ${props => (props.AlignedCentered ? "center" : "")};
   justify-content: space-between;
+  justify-content: ${props => (props.FlexEnd ? "flex-end" : "")};
 `
 
 export const HeadingLarge = styled.h1``
@@ -208,4 +209,154 @@ export const ArticleContents = styled.div`
 
 export const PostCategoryMeta = styled.span`
   display: block;
+`
+
+export const FormWrapper = styled.div`
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #f2f2f2;
+  padding: 2rem;
+  border-radius: 8px;
+`
+
+export const Form = styled.form`
+  width: 100%;
+  display: block;
+`
+
+export const InputField = styled.div`
+  width: 100%;
+  display: block;
+  margin-bottom: 1rem;
+  margin-bottom: ${props => (props.Last ? "0" : "")};
+`
+
+export const FancyInputWrapper = styled.div`
+  position: relative;
+`
+export const FancyInputIcon = styled.div`
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+`
+
+export const FancyInput = styled.input`
+  border-width: 2px;
+  border-style: solid;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-color: rgba(0, 0, 0, 0);
+  padding-left: 28px;
+  width: 100%;
+  border-radius: 4px;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  &:focus {
+    border-color: rgba(0, 0, 0, 0.25);
+  }
+`
+
+export const Input = styled.input`
+  width: 100%;
+`
+
+export const FormTitle = styled.h1`
+  font-size: 1rem;
+  margin-bottom: 1rem;
+`
+
+export const Button = styled.button`
+  outline: none;
+  border: 0;
+  width: 100%;
+  font-size: 1rem;
+  border-radius: 4px;
+  background-color: #e83e8c;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  font-weight: 700;
+`
+
+export const ErrorHelper = styled.span`
+  padding-top: 0.5rem;
+  display: block;
+  color: #da0000;
+`
+
+export const Topbar = styled.div`
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+`
+
+export const TopbarNav = styled.ul`
+  margin: 0;
+  padding: 0;
+  display: flex;
+  list-style: none;
+`
+
+export const TopbarNavItem = styled.li`
+  margin: 0;
+  padding: 0;
+  a {
+    font-weight: 700;
+    display: block;
+    margin-right: 1.25rem;
+    font-size: 0.9rem;
+    &:hover {
+      text-decoration: none;
+      color: #c33878;
+      svg {
+        path {
+          fill: #c33878 !important;
+        }
+      }
+    }
+  }
+  &:last-child {
+    a {
+      margin-right: 0;
+    }
+  }
+`
+
+export const IconWrapper = styled.figure`
+  margin: 0;
+  width: 16px;
+  margin-right: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  svg {
+    path {
+      fill: #e83e8c;
+    }
+    width: 15px;
+    height: 15px;
+  }
+  .loginweb {
+    width: 20px;
+    height: 20px;
+    display: block;
+    fill: rgba(202, 204, 206, 0.4);
+    flex-shrink: 0;
+    backface-visibility: hidden;
+    margin-right: 8px;
+  }
+`
+
+export const LogoutLink = styled.span`
+  font-weight: 700;
+  display: block;
+  color: #e83e8c;
+  margin-right: 1.25rem;
+  font-size: 0.9rem;
+  &:hover {
+    text-decoration: none;
+    color: #c33878;
+    cursor: pointer;
+  }
 `
