@@ -108,6 +108,7 @@ export const CategorySearchItemTitle = styled.p`
 
 export const PageIconWrapper = styled.div`
   margin-right: 0.5rem;
+  display: flex;
   margin-right: ${props => (props.LargeMargin ? "1rem" : "")};
 `
 
