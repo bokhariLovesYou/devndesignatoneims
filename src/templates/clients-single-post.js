@@ -99,7 +99,9 @@ export class ClientsSinglePost extends Component {
         )
       } else {
         if (typeof window !== `undefined`) {
-          navigate("/login")
+          navigate("/login", {
+            state: { previousPage: window.location.pathname },
+          })
         }
       }
     }

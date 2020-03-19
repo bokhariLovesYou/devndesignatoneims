@@ -22,7 +22,6 @@ export class Clients extends Component {
   render() {
     const { data } = this.props
     let tagData = []
-    console.log(auth.currentUser())
     data.markdownRemark.frontmatter.globalTagsData.forEach(elem => {
       if (elem.client) {
         tagData.push({

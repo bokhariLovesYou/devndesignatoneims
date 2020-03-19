@@ -51,13 +51,16 @@ export class Login extends Component {
           }
         } else {
           if (typeof window !== `undefined`) {
-            navigate(`/clients/${userData.email.split("@")[0]}`)
+            if (typeof this.props.location.state.previousPage !== "undefined") {
+              navigate(this.props.location.state.previousPage)
+            } else {
+              navigate(`/clients/${userData.email.split("@")[0]}`)
+            }
           }
         }
         this.setState({
           loading: false,
         })
-        // this.context.handleAuthentication()
       })
       .catch(error => {
         console.log(error)
@@ -102,7 +105,9 @@ export class Login extends Component {
         auth.currentUser() !== null &&
         auth.currentUser().app_metadata.roles[0] === "client"
       ) {
-        if (typeof window !== `undefined`) {
+        if (typeof this.props.location.state.previousPage !== "undefined") {
+          navigate(this.props.location.state.previousPage)
+        } else {
           navigate(`/clients/${auth.currentUser().email.split("@")[0]}`)
         }
       } else {

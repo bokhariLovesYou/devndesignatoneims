@@ -40,7 +40,6 @@ export class index extends Component {
         })
       }
     })
-    console.log(data.globalQuery.frontmatter.globalTagsData)
     const seen = {}
     categories = categories.filter(entry => {
       let previous

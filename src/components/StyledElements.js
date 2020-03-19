@@ -240,6 +240,7 @@ export const FancyInputIcon = styled.div`
   left: 10px;
   top: 50%;
   transform: translateY(-50%);
+  display: flex;
 `
 
 export const FancyInput = styled.input`
