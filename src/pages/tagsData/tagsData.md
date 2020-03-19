@@ -30,4 +30,8 @@ globalTagsData:
     client: true
     image: "../../images/0-burnham.png"
     description: "This catalogue consists info and resources for Burnham Nationwide"
+  - title: rfxcel
+    client: true
+    image: "../../images/ABJn-7_3.jpg"
+    description: "This catalogue consists info and resources for rfxcel"
 ---
