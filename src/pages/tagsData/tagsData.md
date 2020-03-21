@@ -34,4 +34,8 @@ globalTagsData:
     client: true
     image: "../../images/ABJn-7_3.jpg"
     description: "This catalogue consists info and resources for rfxcel"
+  - title: Dynapar
+    client: true
+    image: "../../images/Dynapar_logo-hnt_-_transparent_for_web.png"
+    description: "This catalogue consists info and resources for Dynapar"
 ---

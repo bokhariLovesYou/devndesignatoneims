@@ -1,11 +1,13 @@
 import React, { Component } from "react"
 import Layout from "../components/Layout"
 import SEO from "../components/Seo"
+import RelatedArticles from "../components/RelatedArticles"
 import auth from "../util/auth.js"
 import { Container, Row, Col } from "react-bootstrap"
 import { graphql, navigate } from "gatsby"
 import { Link } from "gatsby"
 import styled from "styled-components"
+import { createGlobalStyle } from "styled-components"
 import { slugify } from "../util/utilityFunctions.js"
 import {
   HeadingLarge,
@@ -19,9 +21,19 @@ import {
   Article,
   ArticleContents,
   PostCategoryMeta,
+  RelatedArticlesWrapper,
+  RelatedArticlesHeading,
 } from "../components/StyledElements"
 const StyledLink = styled(props => <Link {...props} />)`
   font-weight: 600;
+`
+
+const GlobalStyle = createGlobalStyle`
+body,html {
+  @media (min-width: 992px) {
+    overflow-x: unset !important;
+  }
+}
 `
 
 export class ClientsSinglePost extends Component {
@@ -29,6 +41,7 @@ export class ClientsSinglePost extends Component {
     const { data } = this.props
     const post = data.postData.frontmatter
     let tagData = []
+    let documentationArticles = []
     data.globalCatData.frontmatter.globalTagsData.forEach(elem => {
       if (elem.title === post.tags.title) {
         tagData.push({
@@ -37,6 +50,24 @@ export class ClientsSinglePost extends Component {
         })
       }
     })
+    data.categoriesData.edges.forEach(elem => {
+      if (
+        elem.node.frontmatter.tags.title === post.tags.title &&
+        elem.node.frontmatter.documentationTopic === post.documentationTopic &&
+        post.documentation !== false
+      ) {
+        documentationArticles.push({
+          title: elem.node.frontmatter.title.replace(
+            `${elem.node.frontmatter.documentationTopic} -`,
+            ""
+          ),
+          destination: `/clients/${slugify(post.tags.title)}/${slugify(
+            elem.node.frontmatter.title
+          )}`,
+        })
+      }
+    })
+    documentationArticles = documentationArticles.reverse()
     const renderSEO = () => {
       if (post.gated) {
         return (
@@ -50,6 +81,29 @@ export class ClientsSinglePost extends Component {
         return <SEO title={post.metaTitle} description={post.metaDescription} />
       }
     }
+
+    const checkDocumentation = () => {
+      if (documentationArticles.length > 0) {
+        return (
+          <>
+            <GlobalStyle />
+            <RelatedArticlesWrapper>
+              <RelatedArticlesHeading>
+                {post.documentationTopic} Contents
+              </RelatedArticlesHeading>
+              {documentationArticles.map((elem, index) => (
+                <RelatedArticles
+                  title={elem.title}
+                  key={index}
+                  destination={elem.destination}
+                />
+              ))}
+            </RelatedArticlesWrapper>
+          </>
+        )
+      }
+    }
+
     const checkAuthentication = () => {
       if (auth.currentUser() !== null) {
         return (
@@ -59,7 +113,7 @@ export class ClientsSinglePost extends Component {
               <Container>
                 <Row>
                   <Col lg={8}>
-                    <Article>
+                    <Article SidebarActive={documentationArticles.length > 0}>
                       <PostMetaWrapper>
                         <ContentBox>
                           <HeadingLarge>{post.title}</HeadingLarge>
@@ -91,7 +145,7 @@ export class ClientsSinglePost extends Component {
                       />
                     </Article>
                   </Col>
-                  <Col lg={4}></Col>
+                  <Col lg={4}>{checkDocumentation()}</Col>
                 </Row>
               </Container>
             </Section>
@@ -120,6 +174,7 @@ export const query = graphql`
         author
         date(formatString: "MMM Do YYYY")
         documentation
+        documentationTopic
         gated
         tags {
           title
@@ -146,6 +201,27 @@ export const query = graphql`
               fluid(maxWidth: 1100, maxHeight: 1100) {
                 ...GatsbyImageSharpFluid
               }
+            }
+          }
+        }
+      }
+    }
+    categoriesData: allMarkdownRemark {
+      edges {
+        node {
+          id
+          frontmatter {
+            title
+            metaTitle
+            metaDescription
+            date
+            author
+            gated
+            documentation
+            documentationTopic
+            tags {
+              client
+              title
             }
           }
         }

@@ -163,7 +163,11 @@ export const PostMetaWrapper = styled.div``
 export const FeaturedImage = styled.div`
   margin: 1.5rem 0;
 `
-export const Article = styled.article``
+export const Article = styled.article`
+  @media (min-width: 992px) {
+    padding-right: ${props => (props.SidebarActive ? "3.5rem" : "")};
+  }
+`
 
 export const ArticleContents = styled.div`
   h2,
@@ -361,4 +365,56 @@ export const LogoutLink = styled.span`
     color: #c33878;
     cursor: pointer;
   }
+`
+
+export const RelatedArticlesWrapper = styled.div`
+  background-color: #fdf3e1;
+  padding: 2rem 1rem;
+  border-radius: 4px;
+  margin-top: 3.5rem;
+  border: 2px solid #eee;
+  position: relative;
+  &:before {
+    content: "";
+    top: -2.5rem;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #eee;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  @media (min-width: 992px) {
+    padding: 0;
+    padding-bottom: 1rem;
+    padding-left: 1.5rem;
+    border: none;
+    margin-top: 0;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+    position: sticky;
+    top: 3rem;
+    background-color: transparent;
+    &:before {
+      display: none;
+    }
+  }
+  @media (max-width: 992px) {
+    .related-article {
+      &:hover {
+        background-color: #f9e9cd;
+      }
+    }
+  }
+`
+
+export const RelatedArticlesHeading = styled.h2`
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 1rem;
+  color: #e83e8c;
+  // @media (min-width: 992px) {
+
+  // }
 `
