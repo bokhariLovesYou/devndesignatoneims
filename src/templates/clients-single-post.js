@@ -67,7 +67,7 @@ export class ClientsSinglePost extends Component {
         })
       }
     })
-    documentationArticles = documentationArticles.reverse()
+    // documentationArticles = documentationArticles.reverse()
     const renderSEO = () => {
       if (post.gated) {
         return (
