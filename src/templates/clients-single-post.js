@@ -206,7 +206,9 @@ export const query = graphql`
         }
       }
     }
-    categoriesData: allMarkdownRemark {
+    categoriesData: allMarkdownRemark(
+      sort: { fields: [frontmatter___date], order: DESC }
+    ) {
       edges {
         node {
           id
