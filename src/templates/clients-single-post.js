@@ -104,6 +104,18 @@ export class ClientsSinglePost extends Component {
       }
     }
 
+    const checkDocumentationSeries = () => {
+      if (documentationArticles.length > 0) {
+        return (
+          <span>
+            Documentation: <strong>{post.documentationTopic}</strong>
+          </span>
+        )
+      } else {
+        return <span>Posted at {post.date}</span>
+      }
+    }
+
     const checkAuthentication = () => {
       if (auth.currentUser() !== null) {
         return (
@@ -117,7 +129,7 @@ export class ClientsSinglePost extends Component {
                       <PostMetaWrapper>
                         <ContentBox>
                           <HeadingLarge>{post.title}</HeadingLarge>
-                          <span>Posted at {post.date}</span>
+                          {checkDocumentationSeries()}
                           <PostCategoryMeta>
                             Filed under{" "}
                             <StyledLink
