@@ -12,7 +12,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-netlify-identity`,
       options: {
-        url: `https://devndesignatoneims.netlify.com`, // required!
+        url: `https://devndesignatoneims.netlify.app`, // required!
       },
     },
     {
