@@ -23,25 +23,8 @@ Additional Contacts added here will receive an email to reset their password - s
 
 > Please Note: We can add three sub-accounts in our registration form. However, as our users and sub-users are integrated with HubSpot - what this may mean is that there will be three additional roundtrips executed when a user subscribes to a membership. This may add additional loading time while registering thus is not recommended. However, please reach out to us if you'd like to add them anyway.
 
-### Hubspot Integration
+### President's Club
 
-Whenever a user registers on our site, all this information will be pushed to HubSpot and the user may be saved as a contact. Sub Accounts will share the same organizational information as the parent contact. Below are the lists of fields our members may have in HubSpot in addition to the lists they are subscribed to.
+President's club can be purchased by existing members. They can access its registration page from their Dashboard.
 
-    "firstname"
-    "lastname"
-    "email"
-    "company"
-    "business_category"
-    "business_description"
-    "address"
-    "city"
-    "state"
-    "zip"
-    "website"
-    "phone"
-    "employees_fulltime"
-    "employees_part_time"
-    "membership_type"
-    "membership_price"
-    "main_contact"
-    "active_membership"
+![President's Club](https://i.imgur.com/zj1kgK0.png)
