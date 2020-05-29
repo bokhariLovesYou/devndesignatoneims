@@ -15,4 +15,4 @@ tags:
 
 ## Bugs and Errors
 
-We've tested the directory as well as the dashboard pretty much - however **real world** use cases and data will provide us more feedback on our Member Directory. Therefore, please don't hesitate to reach out if you find a bug. Additionally, we'll be overseeing everything for the couple of next weeks to ensure that everything is working as expected.
+We've tested the directory as well as the dashboard pretty much - however **real world** use cases and data will provide us more feedback. Therefore, please don't hesitate to reach out if you find a bug. Additionally, we'll be overseeing everything for the couple of next weeks to ensure that everything is working as expected.

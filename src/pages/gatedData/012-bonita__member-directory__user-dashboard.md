@@ -21,7 +21,8 @@ When a user logs in to as a member to our site - they'd be redirected to our use
 ![enter image description here](https://i.imgur.com/pn7HbrX.jpg)
 
 > The contents within the homepage are editable and can be found in **options**
-> ![enter image description here](https://i.imgur.com/ltpG8oo.png)
+
+![enter image description here](https://i.imgur.com/ltpG8oo.png)
 
 ![enter image description here](https://i.imgur.com/wQebiJw.png)
 

@@ -13,7 +13,7 @@ tags:
   client: true
 ---
 
-**Introduction**
+## Introduction
 
 The member directory consists of two major components. One being the member directory page (where the users are able to search and see listings). The other being the dashboard (for our members so that they can add or edit their listing).
 
