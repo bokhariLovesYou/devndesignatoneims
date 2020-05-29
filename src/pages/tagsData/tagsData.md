@@ -38,4 +38,8 @@ globalTagsData:
     client: true
     image: "../../images/Dynapar_logo-hnt_-_transparent_for_web.png"
     description: "This catalogue consists info and resources for Dynapar"
+  - title: SWFL
+    client: true
+    image: "../../images/Bonita-Springs-Area-Chamber-of-Commerce-Logo-no-tagline-Compresed.jpg"
+    description: "This catalogue consists info and resources for SWFL"
 ---
