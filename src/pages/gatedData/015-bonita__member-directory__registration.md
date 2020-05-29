@@ -25,7 +25,7 @@ Additional Contacts added here will receive an email to reset their password - s
 
 ### Hubspot Integration
 
-Whenever a user registers on our site, all this information will be pushed to HubSpot and the user may be saved as a contact. Sub Accounts will share the same organizational information as the parent contact. Below are the lists of fields our members may have in HubSpot
+Whenever a user registers on our site, all this information will be pushed to HubSpot and the user may be saved as a contact. Sub Accounts will share the same organizational information as the parent contact. Below are the lists of fields our members may have in HubSpot in addition to the lists they are subscribed to.
 
     "firstname"
     "lastname"
