@@ -20,7 +20,7 @@ tags:
 
 The membership page lets our users purchase a membership. It serves as the main marketing page for our membership portal.
 
-![enter image description here](https://i.imgur.com/Btd3xVl.png)
+![enter image description here](https://i.imgur.com/nRLQdX9.png)
 
 The contents for this page are editable using custom fields. A super admin may make updates and edit as required.
 
